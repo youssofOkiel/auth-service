@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\apiAdminController;
+use App\Http\Controllers\apiPermissionController;
 use App\Http\Controllers\apiRoleController;
 use App\Http\Controllers\apiUserController;
 use App\Http\Controllers\AuthController;
@@ -32,9 +33,19 @@ Route::group(['middleware' => ['jwt.verify']], function () {
 });
 
 Route::group(['middleware' => ['jwt.verify', 'admin']], function () {
+
+    // get all roles
     Route::get('/admin/roles', [apiAdminController::class, 'index']);
 
+    // add new role
     Route::post('/admin/add-role', [apiRoleController::class, 'create']);
+
+    // add new permission
+    Route::post('/admin/add-permission', [apiPermissionController::class, 'create']);
+
+    // add permission for exists role
     Route::post('/admin/role-permission', [apiRoleController::class, 'rolePermission']);
+
+    // add role for exists user
     Route::post('/admin/user-role', [apiUserController::class, 'addRole']);
 });

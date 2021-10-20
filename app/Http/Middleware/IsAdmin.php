@@ -22,12 +22,12 @@ class IsAdmin
 
         $user = User::find(Auth::user()->id);
 
+        foreach ($user->roles as $role) {
 
-        // foreach ($user->roles as $role) {
-        if ($user->id == 1) {
-            $isAdmin = true;
+            if ($role->title == 'Admin') {
+                $isAdmin = true;
+            }
         }
-        // }
 
         if (Auth::user() &&  $isAdmin) {
             return $next($request);

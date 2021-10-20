@@ -49,5 +49,8 @@ class DatabaseSeeder extends Seeder
         DB::table('permissions')->insert([
             'title' => "revok"
         ]);
+
+        $admin = User::find(1);
+        $admin->roles()->attach(1);
     }
 }
