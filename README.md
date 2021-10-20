@@ -4,4 +4,29 @@
 
 ### ERD, MVC, Middleware
 
-![alt text](https://drive.google.com/file/d/1doW-eIle5gUEZIPKW_MeoPXg8W3IsqBC/view?usp=sharing)
+1. starting specify entities (User, Role, Permission) and drawing ERD to specify relationship between entities
+
+2. create models and set relations and constraints then migrate
+
+3. but seeds for users, roles, permissions
+4. install JWT package and create Create AuthController and write (register, login, logout) methods then create apis routes
+
+## in our challenge
+
+### - first identify and secure user's session by create Token with life time for user using JWT
+
+## - I use MySQL as Datastore
+
+## - keep user's session valid by session life time
+
+## - way to force invalidating sessions by using Logout end-point to invalidate the token
+
+================
+
+## - strucuture your roles and permissions allways the part of system structure must care about busniess Logic if our system allows to users have multi roles then [User and Roles] => [ many to many ] with pivot table else [many to one] otherwise Roles and permission one role have muliple permission and one permission can be in multiple roles so [M to N]
+
+================
+
+# assign specific user a specific role or permission
+
+## we can do that by useing end-point (api/admin/user-role) to specify role for user or create new role (api/admin/add-role) and new permissions and give user this new role
