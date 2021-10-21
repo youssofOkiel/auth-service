@@ -10,7 +10,6 @@
 
 ![alt text](https://user-images.githubusercontent.com/59757757/138011401-053c25a0-39e3-4873-8289-b9104d27074d.png)
 
-![IMG_٢٠٢١١٠٢٠_٠٢٤٥٣٨](https://user-images.githubusercontent.com/59757757/138330762-a57816df-3a03-4aa0-b7db-ebc559dc56d8.jpg)
 
 3. but seeds for users, roles, permissions
 4. install JWT package and
