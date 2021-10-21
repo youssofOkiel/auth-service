@@ -15,21 +15,66 @@ class apiAdminController extends Controller
     {
         $this->middleware(['jwt.verify', 'admin']);
     }
-    public function index()
+
+
+    public function roles()
     {
 
-        $user = User::find(Auth::user()->id);
+        try {
 
-        $roles = Role::all();
+            $roles = Role::all();
 
-        foreach ($roles as $role) {
-            $role['permissions'] = $role->permissions;
+            foreach ($roles as $role) {
+                $role['permissions'] = $role->permissions;
+
+                $role->makeHidden('pivot');
+                $role->permissions->makeHidden('pivot');
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $roles
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (\Throwable $th) {
+            //throw $th;
+
+            return response()->json([
+                'success' => false,
+                'error' => $th
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
 
-        return response()->json([
-            'success' => false,
-            'user' => $user->roles,
-            'data' => $roles
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    public function users()
+    {
+
+        try {
+
+            $users = User::all();
+
+            foreach ($users as $user) {
+                $user['roles'] = $user->roles; //permissions;
+
+                foreach ($user->roles as $role) {
+                    $role['permissions'] = $role->permissions;
+
+                    $role->makeHidden('pivot');
+                    $role->permissions->makeHidden('pivot');
+                }
+            }
+
+
+            return response()->json([
+                'success' => true,
+                'data' => $users
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (\Throwable $th) {
+            //throw $th;
+
+            return response()->json([
+                'success' => false,
+                'error' => $th
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

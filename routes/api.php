@@ -35,7 +35,9 @@ Route::group(['middleware' => ['jwt.verify']], function () {
 Route::group(['middleware' => ['jwt.verify', 'admin']], function () {
 
     // get all roles
-    Route::get('/admin/roles', [apiAdminController::class, 'index']);
+    Route::get('/admin/roles', [apiAdminController::class, 'roles']);
+    // get all users
+    Route::get('/admin/users', [apiAdminController::class, 'users']);
 
     // add new role
     Route::post('/admin/add-role', [apiRoleController::class, 'create']);

@@ -30,3 +30,7 @@
 # assign specific user a specific role or permission
 
 ## we can do that by useing end-point (api/admin/user-role) to specify role for user or create new role (api/admin/add-role) and new permissions and give user this new role
+
+# validating whether logged user is permitted to do specific action or not.
+
+## we can do that by using middlewares (IsAdmin, Ismanager) based on role and specify permissions for roles you can see Admin middleware in (app/Http/Middleware)

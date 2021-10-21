@@ -28,14 +28,23 @@ class apiRoleController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
+        try {
 
-        $role = new Role();
-        $role->title = $request->title;
-        $role->save();
+            $role = new Role();
+            $role->title = $request->title;
+            $role->save();
 
-        return response()->json([
-            'success' => true,
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json([
+                'success' => true,
+                'data' => $role
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'success' => false,
+                'error' => $th
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     public function rolePermission(Request $request)
@@ -52,6 +61,7 @@ class apiRoleController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
+
         $role = Role::find($request->role_id);
         if ($role == null) {
             return response()->json([
@@ -61,15 +71,16 @@ class apiRoleController extends Controller
         }
 
         try {
+
             $role->permissions()->attach($request->permission_id);
             return response()->json([
                 'success' => true,
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (\Throwable $th) {
-            //throw $th;
+
             return response()->json([
                 'success' => false,
-                $th
+                'error' => $th
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

@@ -43,7 +43,7 @@ class apiUserController extends Controller
             //throw $th;
             return response()->json([
                 'success' => false,
-                $th
+                'error' => $th
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

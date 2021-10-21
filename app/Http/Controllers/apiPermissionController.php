@@ -28,13 +28,21 @@ class apiPermissionController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
+        try {
+            $permission = new Permission();
+            $permission->title = $request->title;
+            $permission->save();
 
-        $permission = new Permission();
-        $permission->title = $request->title;
-        $permission->save();
+            return response()->json([
+                'success' => true,
+                'permission' => $permission
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (\Throwable $th) {
 
-        return response()->json([
-            'success' => true,
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json([
+                'success' => false,
+                'error' => $th
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -30,18 +30,27 @@ class AuthController extends Controller
             return response()->json(['error' => $validator->errors()], 401);
         }
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
+        try {
 
-        $user->password = Hash::make($request->password);
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
 
-        $user->save();
+            $user->password = Hash::make($request->password);
 
-        return response()->json([
-            'success' => true,
-            'user' => $user
-        ], 201);
+            $user->save();
+
+            return response()->json([
+                'success' => true,
+                'user' => $user
+            ], 201);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'success' => false,
+                'error' => $th
+            ], 201);
+        }
     }
 
 
@@ -56,9 +65,13 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|max:50'
         ]);
 
-        $credentials = $request->only('email', 'password');
-        try {
 
+        if ($validator->fails()) {
+
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+
+        try {
 
             if (!$token = JWTAuth::attempt($credentials)) {
 
@@ -67,23 +80,24 @@ class AuthController extends Controller
                     'message' => 'Login credentials are invalid.',
                 ], 400);
             }
+
+            return response()->json([
+                'success' => true,
+                'token' => $token,
+            ]);
         } catch (JWTException $e) {
-            return $credentials;
             return response()->json([
                 'success' => false,
                 'message' => 'Could not create token.',
-            ], 500);
+                'error' => $e
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return response()->json([
-            'success' => true,
-            'token' => $token,
-        ]);
     }
 
     public function logout(Request $request)
     {
-        //valid credential
+        // Note validator is optional we can consider on barear token in authrization methods
+        // valid credential
         $validator = Validator::make($request->only('token'), [
             'token' => 'required'
         ]);
@@ -104,7 +118,8 @@ class AuthController extends Controller
         } catch (JWTException $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, user cannot be logged out'
+                'message' => 'Sorry, user cannot be logged out',
+                'error' => $exception
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
