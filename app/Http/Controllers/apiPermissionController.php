@@ -25,7 +25,7 @@ class apiPermissionController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $validator->errors()
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_FORBIDDEN);
         }
 
         try {
@@ -36,7 +36,7 @@ class apiPermissionController extends Controller
             return response()->json([
                 'success' => true,
                 'permission' => $permission
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
 
             return response()->json([

@@ -49,7 +49,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => false,
                 'error' => $th
-            ], 201);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -84,7 +84,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'token' => $token,
-            ]);
+            ], Response::HTTP_CREATED);
         } catch (JWTException $e) {
             return response()->json([
                 'success' => false,
@@ -104,7 +104,9 @@ class AuthController extends Controller
 
         //Send failed response if request is not valid
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 200);
+            return response()->json([
+                'error' => $validator->errors()
+            ], Response::HTTP_FORBIDDEN);
         }
 
         //Request is validated, do logout        
@@ -114,7 +116,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'User has been logged out'
-            ]);
+            ], Response::HTTP_OK);
         } catch (JWTException $exception) {
             return response()->json([
                 'success' => false,

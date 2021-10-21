@@ -25,7 +25,7 @@ class apiRoleController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $validator->errors()
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_FORBIDDEN);
         }
 
         try {
@@ -37,7 +37,7 @@ class apiRoleController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $role
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             //throw $th;
             return response()->json([
@@ -58,7 +58,7 @@ class apiRoleController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $validator->errors()
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_FORBIDDEN);
         }
 
 
@@ -67,7 +67,7 @@ class apiRoleController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => "role not found"
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_NOT_FOUND);
         }
 
         try {
@@ -75,7 +75,7 @@ class apiRoleController extends Controller
             $role->permissions()->attach($request->permission_id);
             return response()->json([
                 'success' => true,
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_OK);
         } catch (\Throwable $th) {
 
             return response()->json([

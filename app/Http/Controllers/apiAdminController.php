@@ -34,7 +34,7 @@ class apiAdminController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $roles
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_FOUND);
         } catch (\Throwable $th) {
             //throw $th;
 
@@ -67,7 +67,7 @@ class apiAdminController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $users
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_FOUND);
         } catch (\Throwable $th) {
             //throw $th;
 

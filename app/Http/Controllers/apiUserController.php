@@ -22,7 +22,7 @@ class apiUserController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $validator->errors()
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_FORBIDDEN);
         }
 
 
@@ -31,14 +31,14 @@ class apiUserController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => "user not found"
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_NOT_FOUND);
         }
 
         try {
             $user->roles()->attach($request->role_id);
             return response()->json([
                 'success' => true,
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             //throw $th;
             return response()->json([

@@ -44,7 +44,7 @@
 
 validating whether logged user is permitted to do specific action or not.
 
-## we can do that by using middlewares (IsAdmin, Ismanager) based on role and specify permissions for roles you can see Admin middleware in (app/Http/Middleware) - Or - checks roles in controllers in methods of actions i not not prefer this way (the middleware is awsome )
+## we can do that by using middlewares (IsAdmin, Ismanager) based on role and specify permissions for roles you can see Admin middleware in (app/Http/Middleware) - Or - we checks roles in controllers in methods of actions but i not prefer this way becouse (the middleware is awsome )
 
 # Test
 
