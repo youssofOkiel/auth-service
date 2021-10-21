@@ -11,8 +11,8 @@
 ![alt text](https://user-images.githubusercontent.com/59757757/138011401-053c25a0-39e3-4873-8289-b9104d27074d.png)
 
 
-3. but seeds for users, roles, permissions
-4. install JWT package and
+3. put seeds for users, roles, permissions
+4. install JWT package
 5. Create AuthController and write (register, login, logout) methods then create apis routes
 
 # in our challenge
