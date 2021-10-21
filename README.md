@@ -50,3 +50,6 @@ validating whether logged user is permitted to do specific action or not.
 ## i using postman to test end-points and check response in all possible scenarios
 
 ![alt text](https://user-images.githubusercontent.com/59757757/138284556-282d654c-f93b-4ac3-8c1f-5cf90fca26eb.PNG)
+
+![Capture1](https://user-images.githubusercontent.com/59757757/138342584-3aa30686-0e46-478a-afe3-91a19ea0f756.PNG)
+
